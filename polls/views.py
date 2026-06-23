@@ -88,6 +88,8 @@ def user_login(request):
         if user is not None:
             login(request, user)
             return redirect('dashboard')
+        else:
+            return HttpResponse("Login Failed")
 
     return render(request, 'polls/login.html')
 
