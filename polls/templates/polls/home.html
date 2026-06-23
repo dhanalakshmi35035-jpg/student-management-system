@@ -1,0 +1,22 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Web Application</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+    <h1>Welcome to Web Application</h1>
+
+    <img src="{% static 'flower.png' %}" width="300">
+
+    <br><br>
+
+    <a href="/polls/about/">
+        <button>About Page</button>
+    </a>
+
+</body>
+</html>

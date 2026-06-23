@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Fee</title>
+</head>
+<body>
+
+<h1>Add Fee Details</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit">
+        Save Fee
+    </button>
+</form>
+
+<br>
+
+<a href="{% url 'fee_list' %}">
+    View Fee Details
+</a>
+
+</body>
+</html>

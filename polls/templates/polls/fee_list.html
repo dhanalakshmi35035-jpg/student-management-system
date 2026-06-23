@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fee List</title>
+</head>
+<body>
+
+<h1>Fee Details</h1>
+
+<table border="1">
+    <tr>
+        <th>Student</th>
+        <th>Total Fee</th>
+        <th>Paid Fee</th>
+        <th>Balance</th>
+    </tr>
+
+    {% for fee in fees %}
+    <tr>
+        <td>{{ fee.student }}</td>
+        <td>{{ fee.total_fee }}</td>
+        <td>{{ fee.paid_fee }}</td>
+        <td>{{ fee.balance }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+<br>
+
+<a href="{% url 'add_fee' %}">
+    Add More Fee Details
+</a>
+
+</body>
+</html>

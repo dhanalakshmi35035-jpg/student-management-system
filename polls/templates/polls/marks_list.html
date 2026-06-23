@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Marks List</title>
+    
+</head>
+<body>
+
+<h1>Marks List</h1>
+
+<table border="1">
+    <tr>
+        <th>Student</th>
+        <th>Sensors</th>
+        <th>Industrial Instrumentation</th>
+        <th>Process Control</th>
+        <th>Total</th>
+        <th>Average</th>
+        <th>Result</th>
+        <th>Grade</th>
+        <th>Remark</th>
+        <th>Percentage</th>
+    </tr>
+
+    {% for mark in marks %}
+    <tr>
+        <td>{{ mark.student }}</td>
+        <td>{{ mark.Sensors}}</td>
+        <td>{{ mark.IndustrialInstrumentation }}</td>
+        <td>{{ mark.ProcessControl}}</td>
+        <td>{{ mark.total }}</td>
+        <td>{{ mark.average }}</td>
+
+        <td>
+    {% if mark.average >= 35 %}
+        Pass
+    {% else %}
+        Fail
+    {% endif %}
+</td>
+
+<td>
+    {% if mark.average >= 90 %}
+        A
+    {% elif mark.average >= 80 %}
+        B
+    {% elif mark.average >= 70 %}
+        C
+    {% elif mark.average >= 50 %}
+        D
+    {% else %}
+        F
+    {% endif %}
+</td>
+
+<td>
+    {% if mark.average >= 90 %}
+        Excellent
+    {% elif mark.average >= 80 %}
+        Very Good
+    {% elif mark.average >= 70 %}
+        Good
+    {% elif mark.average >= 50 %}
+        Average
+    {% else %}
+        Needs Improvement
+    {% endif %}
+</td>
+
+<td>{{ mark.average|floatformat:2 }}%</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+<br>
+
+<a href="{% url 'add_marks' %}">
+    Add More Marks
+</a>
+
+</body>
+</html>
