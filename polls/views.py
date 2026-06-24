@@ -208,11 +208,19 @@ def marks_list(request):
         'polls/marks_list.html',
         {'marks': marks}
     )
-from django.http import HttpResponse
-
 def add_fee(request):
-    return HttpResponse("Add Fee Working")
 
+    if request.method == "POST":
+        form = FeeForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect('fee_list')
+
+    else:
+        form = FeeForm()
+
+    return render(request, 'polls/add_fee.html', {'form': form})
 def fee_list(request):
     fees = Fee.objects.all()
 
