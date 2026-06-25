@@ -348,3 +348,8 @@ def student_pdf(request, id):
           p.save()
 
     return response
+def id_card(request, student_id):
+    student = get_object_or_404(Student, id=student_id)
+    return render(request, 'polls/id_card.html', {
+        'student': student
+    })

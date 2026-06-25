@@ -24,4 +24,5 @@ path('add_fee/', views.add_fee, name='add_fee'),
 path('fee_list/', views.fee_list, name='fee_list'),
 path('generate_pdf/', views.generate_pdf, name='generate_pdf'),
 path('student_pdf/<int:id>/', views.student_pdf, name='student_pdf'),
+path('idcard/<int:student_id>/', views.id_card, name='id_card'),
 ]
