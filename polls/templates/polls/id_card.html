@@ -1,5 +1,4 @@
 {% load static %}
-{% load static %}
 
 <style>
 .id-card{
@@ -9,46 +8,54 @@
     padding:20px;
     text-align:center;
     border-radius:10px;
+    font-family: Arial, sans-serif;
+}
+
+.id-card img{
+    width:70px;
+    height:70px;
+    object-fit:contain;
+}
+
+.id-card h2{
+    font-size:22px;
+    margin:10px 0;
+}
+
+.id-card h3{
+    font-size:18px;
+}
+
+.id-card p{
+    text-align:left;
+    margin-left:30px;
+}
+
+button{
+    margin-top:10px;
+    padding:8px 15px;
 }
 </style>
 
+
 <div class="id-card">
 
-    <img src="{% static 'images/college_logo.png' %}"
-         alt="College Logo"
-         width="80">
+    <img src="{% static 'college_logo.png' %}" alt="College Logo">
 
-    <h2>ABC COLLEGE</h2>
+    <h2>ANNAMALAI UNIVERSITY</h2>
+
     <h3>STUDENT ID CARD</h3>
 
     <hr>
 
     <p><b>Name:</b> {{ student.name }}</p>
+
     <p><b>Roll No:</b> {{ student.roll_no }}</p>
+
     <p><b>Department:</b> {{ student.department }}</p>
+
     <p><b>Email:</b> {{ student.email }}</p>
 
-    <button onclick="window.print()">
-        Print ID Card
-    </button>
-
-</div>
-
-<div class="id-card">
-
-    <img src="{% static 'images/college_logo.png' %}"
-         alt="College Logo"
-         width="80">
-
-    <h2>ABC COLLEGE</h2>
-    <h3>STUDENT ID CARD</h3>
-
-    <hr>
-
-    <p><b>Name:</b> {{ student.name }}</p>
-    <p><b>Roll No:</b> {{ student.roll_no }}</p>
-    <p><b>Department:</b> {{ student.department }}</p>
-    <p><b>Email:</b> {{ student.email }}</p>
 
     <button onclick="window.print()">
         Print ID Card
