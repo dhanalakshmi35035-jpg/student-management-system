@@ -12,6 +12,7 @@ import os
 from django.conf import settings
 from reportlab.lib.utils import ImageReader
 from reportlab.platypus import Image
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
@@ -52,6 +53,7 @@ def home(request):
     return render(request, 'polls/home.html')
 def about(request):
     return render(request, 'polls/about.html')
+
 def student_list(request):
 
 
@@ -93,7 +95,7 @@ def user_login(request):
 
     return render(request, 'polls/login.html')
 
-
+@login_required
 def dashboard(request):
     total_students = Student.objects.count()
     total_attendance = Attendance.objects.count()
@@ -122,7 +124,7 @@ def user_logout(request):
     return redirect('login')
 
 from .forms import StudentForm
-
+@login_required
 def add_student(request):
 
     if request.method == "POST":
@@ -136,7 +138,7 @@ def add_student(request):
         form = StudentForm()
 
     return render(request, 'polls/add_student.html', {'form': form})
-
+@login_required
 def edit_student(request, student_id):
 
     student = get_object_or_404(Student, id=student_id)
@@ -152,6 +154,7 @@ def edit_student(request, student_id):
         form = StudentForm(instance=student)
 
     return render(request, 'polls/edit_student.html', {'form': form})
+@login_required
 def delete_student(request, student_id):
 
     student = get_object_or_404(Student, id=student_id)
@@ -159,6 +162,7 @@ def delete_student(request, student_id):
     student.delete()
 
     return HttpResponseRedirect(reverse('student_list'))
+
 def mark_attendance(request):
 
     if request.method == "POST":
@@ -172,7 +176,7 @@ def mark_attendance(request):
         form = AttendanceForm()
 
     return render(request, 'polls/mark_attendance.html', {'form': form})
-
+@login_required
 def attendance_list(request):
 
     attendance_records = Attendance.objects.all()
@@ -184,7 +188,7 @@ def attendance_list(request):
     )
 
 
-
+@login_required
 def add_marks(request):
 
     if request.method == "POST":
@@ -199,7 +203,7 @@ def add_marks(request):
 
     return render(request, 'polls/add_marks.html', {'form': form})
 
-
+@login_required
 def marks_list(request):
     marks = Mark.objects.all()
 
@@ -208,6 +212,7 @@ def marks_list(request):
         'polls/marks_list.html',
         {'marks': marks}
     )
+@login_required
 def add_fee(request):
 
     if request.method == "POST":
@@ -221,6 +226,8 @@ def add_fee(request):
         form = FeeForm()
 
     return render(request, 'polls/add_fee.html', {'form': form})
+
+@login_required
 def fee_list(request):
     fees = Fee.objects.all()
 
@@ -229,6 +236,7 @@ def fee_list(request):
         'polls/fee_list.html',
         {'fees': fees}
     )
+
 def generate_pdf(request):
 
     response = HttpResponse(content_type='application/pdf')
@@ -353,3 +361,11 @@ def id_card(request, student_id):
     return render(request, 'polls/id_card.html', {
         'student': student
     })
+
+from django.shortcuts import get_object_or_404, redirect
+from .models import Mark
+
+def delete_mark(request, mark_id):
+    mark = get_object_or_404(Mark, id=mark_id)
+    mark.delete()
+    return redirect('marks_list')

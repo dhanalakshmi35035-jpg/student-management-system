@@ -26,6 +26,7 @@
         <th>Grade</th>
         <th>Remark</th>
         <th>Percentage</th>
+        <th>Action</th>
     </tr>
 
     {% for mark in marks %}
@@ -74,6 +75,13 @@
 </td>
 
 <td>{{ mark.average|floatformat:2 }}%</td>
+<td>
+    
+    <a href="{% url 'delete_mark' mark.id %}"
+       onclick="return confirm('Are you sure?')">
+       Delete
+    </a>
+</td>
     </tr>
     {% endfor %}
 

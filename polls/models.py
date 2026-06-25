@@ -1,4 +1,5 @@
 from  django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
@@ -26,7 +27,6 @@ class Attendance(models.Model):
     STATUS_CHOICES = [
         ('Present', 'Present'),
         ('Absent', 'Absent'),
-        ('Leave', 'Leave'),
     ]
 
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
@@ -38,9 +38,17 @@ class Attendance(models.Model):
 class Mark(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
 
-    Sensors= models.IntegerField()
-    IndustrialInstrumentation = models.IntegerField()
-    ProcessControl = models.IntegerField()
+    Sensors = models.IntegerField(
+    validators=[MinValueValidator(0), MaxValueValidator(100)]
+)
+
+    IndustrialInstrumentation = models.IntegerField(
+    validators=[MinValueValidator(0), MaxValueValidator(100)]
+)
+
+    ProcessControl = models.IntegerField(
+    validators=[MinValueValidator(0), MaxValueValidator(100)]
+)
 
     def total(self):
         return self.Sensors + self.IndustrialInstrumentation + self.ProcessControl 
