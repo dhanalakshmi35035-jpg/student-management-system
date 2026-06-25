@@ -15,7 +15,7 @@ class Choice(models.Model):
 
 class Student(models.Model):
     name = models.CharField(max_length=100)
-    roll_no = models.IntegerField()
+    roll_no = models.IntegerField(unique=True)
     department = models.CharField(max_length=50)
     email = models.EmailField()
 
@@ -32,6 +32,9 @@ class Attendance(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     date = models.DateField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
+
+    class Meta:
+        unique_together = ('student', 'date')
     def __str__(self):
         return f"{self.student.name} - {self.date}"    
     
@@ -62,8 +65,8 @@ class Mark(models.Model):
 class Fee(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
 
-    total_fee = models.IntegerField()
-    paid_fee = models.IntegerField()
+    total_fee = models.PositiveIntegerField()
+    paid_fee = models.PositiveIntegerField()
 
     def balance(self):
         return self.total_fee - self.paid_fee
