@@ -68,6 +68,20 @@ class Fee(models.Model):
     total_fee = models.PositiveIntegerField()
     paid_fee = models.PositiveIntegerField()
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['student'],
+                name='unique_student_fee'
+            )
+        ]
+
+    def balance(self):
+        return self.total_fee - self.paid_fee
+
+    def __str__(self):
+        return self.student.name    
+
     def balance(self):
         return self.total_fee - self.paid_fee
 
